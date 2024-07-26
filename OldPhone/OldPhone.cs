@@ -25,26 +25,11 @@ namespace OldPhoneNS
                 }
                 else if (currentChar == Backspace)
                 {
-                    if (result.Length > 0)
-                    {
-                        result.Length--; // Backspace
-                    }
+                    HandleBackspace(result);
                 }
                 else if (char.IsDigit(currentChar))
                 {
-                    int digit = currentChar - '0';
-                    int count = 1;
-
-                    // Count consecutive same digits
-                    while (i + 1 < input.Length && input[i + 1] == currentChar)
-                    {
-                        count++;
-                        i++;
-                    }
-
-                    // Calculate the index in the corresponding string
-                    int index = (count - 1) % Keypad[digit].Length;
-                    result.Append(Keypad[digit][index]);
+                    i = HandleDigit(input, result, i, currentChar);
                 }
 
                 i++;
@@ -52,12 +37,39 @@ namespace OldPhoneNS
 
             return result.ToString();
         }
-        public static void Main()
+
+        private static void HandleBackspace(StringBuilder result)
         {
-            Console.WriteLine(OldPhonePad("33#")); // Expected output: E
-            Console.WriteLine(OldPhonePad("227 *#")); // Expected output: B
-            Console.WriteLine(OldPhonePad("4433555 555666#")); // Expected output: HELLO
-            Console.WriteLine(OldPhonePad("8 88777444666 * 664#")); // Expected output: TURING
+            if (result.Length > 0)
+            {
+                result.Length--; // Backspace
+            }
+        }
+
+        private static int HandleDigit(string input, StringBuilder result, int i, char currentChar)
+        {
+            int digit = currentChar - '0';
+            int count = CountConsecutiveDigits(input, ref i, currentChar);
+
+            // Calculate the index in the corresponding string
+            int index = (count - 1) % Keypad[digit].Length;
+            result.Append(Keypad[digit][index]);
+
+            return i;
+        }
+
+        private static int CountConsecutiveDigits(string input, ref int i, char currentChar)
+        {
+            int count = 1;
+
+            // Count consecutive same digits
+            while (i + 1 < input.Length && input[i + 1] == currentChar)
+            {
+                count++;
+                i++;
+            }
+
+            return count;
         }
     }
 }
