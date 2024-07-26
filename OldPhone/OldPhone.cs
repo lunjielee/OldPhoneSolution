@@ -7,7 +7,7 @@ namespace OldPhoneNS
     public class OldPhone
     {
         // Mapping of digits to corresponding letters
-        private static readonly string[] Keypad = { " ", " ", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ" };
+        private static readonly string[] Keypad = { " ", "&'(", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ" };
         private const char EndInput = '#';
         private const char Backspace = '*';
 
