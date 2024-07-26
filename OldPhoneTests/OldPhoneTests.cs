@@ -24,5 +24,10 @@ namespace OldPhoneTests
         {
             Assert.AreEqual("TURING", OldPhone.OldPhonePad("8 88777444666 * 664#"));
         }
+        [TestMethod]
+        public void Test_Output_HELLOWORLD_WITH_AMPERSAND()
+        {
+            Assert.AreEqual("HELLO&WORLD", OldPhone.OldPhonePad("4433555 555666196667775553#"));
+        }
     }
 }
