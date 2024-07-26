@@ -3,10 +3,15 @@ namespace OldPhoneNS
 {
     public class OldPhone
     {
+        // Mapping of digits to corresponding letters
+        private static readonly string[] Keypad = { " ", " ", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ" };
+        private const char EndInput = '#';
+        private const char Backspace = '*';
+
         public static string OldPhonePad(string input)
         {
-            // Mapping of digits to corresponding letters
-            string[] keypad = { " ", " ", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ" };
+
+
             StringBuilder result = new StringBuilder();
             int i = 0;
 
@@ -14,11 +19,11 @@ namespace OldPhoneNS
             {
                 char currentChar = input[i];
 
-                if (currentChar == '#')
+                if (currentChar == EndInput)
                 {
                     break; // End of input
                 }
-                else if (currentChar == '*')
+                else if (currentChar == Backspace)
                 {
                     if (result.Length > 0)
                     {
@@ -38,8 +43,8 @@ namespace OldPhoneNS
                     }
 
                     // Calculate the index in the corresponding string
-                    int index = (count - 1) % keypad[digit].Length;
-                    result.Append(keypad[digit][index]);
+                    int index = (count - 1) % Keypad[digit].Length;
+                    result.Append(Keypad[digit][index]);
                 }
 
                 i++;
